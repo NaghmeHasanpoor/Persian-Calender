@@ -75,7 +75,7 @@ job_create_sign:
 
 job_build_debug:
   extends: .before_script_template
-  retry:21
+  retry:
     max: 2
     when: runner_system_failure
   interruptible: true
