@@ -5,6 +5,7 @@ buildscript {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.2'
@@ -23,5 +24,6 @@ allprojects {
         maven {
             url 'https://swisscodemonkeys.github.io/appbrain-sdk/maven'
         }
+        jcenter()
     }
 }
