@@ -55,6 +55,9 @@ workflow:
 
 job_create_sign:
   extends: .before_python_script_template
+  retry:
+    max: 2
+    when: runner_system_failure
   stage: prepare
   script:
     - python ${KEYSTORE_GENERATOR} -b "${CI_COMMIT_BRANCH}" -vc ${VERSION} -vn ${VERSION}  >/dev/null
@@ -72,6 +75,9 @@ job_create_sign:
 
 job_build_debug:
   extends: .before_script_template
+  retry:
+    max: 2
+    when: runner_system_failure
   interruptible: true
   stage: build
   script:
@@ -89,6 +95,9 @@ job_build_debug:
 
 job_build_release:
   extends: .before_script_template
+  retry:
+    max: 2
+    when: runner_system_failure
   interruptible: true
   dependencies:
     - "job_create_sign"
@@ -110,6 +119,9 @@ job_build_release:
 job_send:
   extends: .before_python_script_template
   stage: send
+  retry:
+    max: 2
+    when: runner_system_failure
   dependencies:
     - job_build_release
     - job_build_debug
