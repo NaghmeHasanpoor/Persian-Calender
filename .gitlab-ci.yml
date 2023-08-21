@@ -9,7 +9,6 @@ variables:
   KEYSTORE_PASSWORD: "123456A1!"
   KEYSTORE_ALIAS: "hello"
   PIPELINE_TO_CHECK: "trigger"
-  RETRY: 3
 
 stages:
   - "prepare"
@@ -77,7 +76,6 @@ job_build_debug:
   stage: build
   script:
     - ./gradlew assembleDebug  >/dev/null
-  retry: $RETRY
   artifacts:
     paths:
       - app/build/outputs/
@@ -95,7 +93,6 @@ job_build_release:
   dependencies:
     - "job_create_sign"
   stage: build
-  retry: $RETRY
   script:
     - ./gradlew bundleRelease    >/dev/null
     - ./gradlew assembleRelease  >/dev/null
@@ -116,7 +113,6 @@ job_send:
   dependencies:
     - job_build_release
     - job_build_debug
-  retry: $RETRY
   script:
     - python ${HANDLER_SCRIPT}
       -c "${CI_COMMIT_REF_NAME}"
