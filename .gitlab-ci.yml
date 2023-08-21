@@ -1,0 +1,133 @@
+# pipeline for perfect app builder
+# by Mr.GH V1.0
+
+image: openjdk:11-jdk
+
+variables:
+  DEPLOY_VARIABLE: "debug-deploy"
+  KEYSTORE_FILE: "my.keystore"
+  KEYSTORE_PASSWORD: "123456A1!"
+  KEYSTORE_ALIAS: "hello"
+  PIPELINE_TO_CHECK: "trigger"
+  RETRY: 3
+
+stages:
+  - "prepare"
+  - "change"
+  - "build"
+  - "send"
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == $PIPELINE_TO_CHECK
+      variables:
+        DEPLOY_VARIABLE: "production-deploy"
+    - when: always
+
+.before_script_template:
+  before_script:
+    - chmod +x ./gradlew
+    - apt-get update -qq  --yes > /dev/null
+    - apt-get install -qq  --yes wget tar unzip lib32stdc++6 lib32z1 net-tools > /dev/null
+    - ifconfig -a
+    - export ANDROID_HOME="${PWD}/android-home"
+    - install -d $ANDROID_HOME
+    - wget -q --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+    - pushd $ANDROID_HOME  >/dev/null
+    - unzip  -qq -d cmdline-tools cmdline-tools.zip  >/dev/null
+    - pushd cmdline-tools  >/dev/null
+    - mv cmdline-tools tools || true  >/dev/null
+    - popd  >/dev/null
+    - popd  >/dev/null
+    - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
+    - sdkmanager --version > /dev/null
+    - (yes | sdkmanager --licenses || true) >/dev/null
+    - sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}"  >/dev/null
+    - sdkmanager "platform-tools"   >/dev/null
+    - sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"  >/dev/null
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint  >/dev/null
+
+.before_python_script_template:
+  image: python:3.10-slim-bullseye
+  before_script:
+    - pip3 install requests  >/dev/null
+  after_script:
+    - echo "Run script with ${DEPLOY_VARIABLE} as an argument"
+
+job_create_sign:
+  extends: .before_python_script_template
+  stage: prepare
+  script:
+    - python ${KEYSTORE_GENERATOR} -b "${CI_COMMIT_BRANCH}" -vc ${VERSION} -vn ${VERSION}  >/dev/null
+  artifacts:
+    paths:
+      - $KEYSTORE_FILE
+      - signing.properties
+      - ./app/src/main/res/values/strings.xml
+      - ./app/src/main/AndroidManifest.xml
+      - ./app/build.gradle
+    expire_in: 100 mins
+  rules:
+    - if: $CI_PIPELINE_SOURCE == $PIPELINE_TO_CHECK
+    - when: never
+
+job_build_debug:
+  extends: .before_script_template
+  interruptible: true
+  stage: build
+  script:
+    - ./gradlew assembleDebug  >/dev/null
+  retry: $RETRY
+  artifacts:
+    paths:
+      - app/build/outputs/
+      - ./app/src/main/res/values/strings.xml
+      - ./app/src/main/AndroidManifest.xml
+      - ./app/build.gradle
+    expire_in: 2 hrs
+  rules:
+    - if: $CI_PIPELINE_SOURCE != $PIPELINE_TO_CHECK
+    - when: never
+
+job_build_release:
+  extends: .before_script_template
+  interruptible: true
+  dependencies:
+    - "job_create_sign"
+  stage: build
+  retry: $RETRY
+  script:
+    - ./gradlew bundleRelease    >/dev/null
+    - ./gradlew assembleRelease  >/dev/null
+  artifacts:
+    paths:
+      - app/build/outputs/
+      - ./app/src/main/res/values/strings.xml
+      - ./app/src/main/AndroidManifest.xml
+      - ./app/build.gradle
+    expire_in: 2 hrs
+  rules:
+    - if: $CI_PIPELINE_SOURCE == $PIPELINE_TO_CHECK
+    - when: never
+
+job_send:
+  extends: .before_python_script_template
+  stage: send
+  dependencies:
+    - job_build_release
+    - job_build_debug
+  retry: $RETRY
+  script:
+    - python ${HANDLER_SCRIPT}
+      -c "${CI_COMMIT_REF_NAME}"
+      -p "${CI_PROJECT_ID}"
+      -s "${CI_COMMIT_SHORT_SHA}"
+      -j "${CI_JOB_ID}"
+      -u "${GITLAB_USER_NAME}"
+      -e "${GITLAB_USER_EMAIL}"
+      -b "${CI_COMMIT_BRANCH}"
+      -ps "$CI_PIPELINE_SOURCE"
+      -dv "${DEPLOY_VARIABLE}"
+      -mid "${MESSAGE_ID}"
+      -jt "${TRIGGER_TOKEN}"  >/dev/null
+

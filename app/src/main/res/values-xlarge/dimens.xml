@@ -1,0 +1,61 @@
+
+<resources>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="icon_margin">16dp</dimen>
+    <dimen name="padding_item">8dp</dimen>
+    <dimen name="grid_calendar_padding_bottom">4dp</dimen>
+    <dimen name="item_calendar_margin_top">4dp</dimen>
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_description">14sp</dimen>
+    <dimen name="text_size_note">14sp</dimen>
+    <dimen name="text_size_drawer">16sp</dimen>
+    <dimen name="tx_up">10dp</dimen>
+    <dimen name="margin_side">20dp</dimen>
+    <dimen name="margin_bottom">30dp</dimen>
+    <dimen name="apps_margin">15dp</dimen>
+    <dimen name="drawer_width">450dp</dimen>
+    <dimen name="drawer_item_height">75dp</dimen>
+    <dimen name="drawer_header_height">254dp</dimen>
+
+    <dimen name="icon_margin2">36dp</dimen>
+    <dimen name="icon_size">25dp</dimen>
+    <dimen name="add">80dp</dimen>
+    <dimen name="day_item_size">50dp</dimen>
+    <dimen name="day_item_select">45dp</dimen>
+    <dimen name="day_item_select_size">36dp</dimen>
+
+    <dimen name="day_item_size_d">50dp</dimen>
+    <dimen name="day_item_select_d">45dp</dimen>
+    <dimen name="day_item_select_size_d">36dp</dimen>
+
+    <dimen name="event">5dp</dimen>
+    <dimen name="toolbar">100dp</dimen>
+    <dimen name="btn">45dp</dimen>
+    <dimen name="btn2">110dp</dimen>
+    <dimen name="title_font">36sp</dimen>
+    <dimen name="grid_calendar_height">420dp</dimen>
+    <dimen name="grid_calendar_height_d">420dp</dimen>
+    <dimen name="card_margin">12dp</dimen>
+    <dimen name="add_city_w">28dp</dimen>
+    <dimen name="add_city_h">40dp</dimen>
+    <dimen name="card_padding2">20dp</dimen>
+    <dimen name="margin_bottom1">120dp</dimen>
+    <dimen name="dialog_w">550dp</dimen>
+    <dimen name="dialog_h">890dp</dimen>
+    <dimen name="text_dialog_w">350dp</dimen>
+    <dimen name="text_dialog_h">76dp</dimen>
+
+    <dimen name="save_w">300dp</dimen>
+    <dimen name="save_h">76dp</dimen>
+
+    <dimen name="dialog_text1">25sp</dimen>
+    <dimen name="dialog_text2">22sp</dimen>
+    <dimen name="dialog_text3">20sp</dimen>
+
+    <dimen name="dp_60">80dp</dimen>
+    <dimen name="sp_20">25sp</dimen>
+
+    <integer name="txt1">25</integer>
+    <integer name="txt2">20</integer>
+    <integer name="txt3">23</integer>
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <attr name="colorCard" format="reference"/>
+    <attr name="colorBackground" format="reference"/>
+    <attr name="colorTextPrimary" format="reference"/>
+    <attr name="colorTextNormal" format="reference"/>
+    <attr name="colorTextSecond" format="reference"/>
+    <attr name="colorTextHoliday" format="reference"/>
+    <attr name="colorHoliday" format="reference"/>
+    <attr name="colorTextDayName" format="reference"/>
+    <attr name="colorTextAthan" format="reference"/>
+    <attr name="colorSelectDay" format="reference"/>
+    <attr name="circleCurrentDay" format="reference"/>
+    <attr name="circleSelect" format="reference"/>
+    <attr name="appDivider" format="reference"/>
+
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorPrimaryDark">@color/dark_primary_dark</item>
+        <item name="colorAccent">@color/dark_accent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorCard">@color/black</item>
+        <item name="colorBackground">@color/black</item>
+        <item name="colorTextPrimary">@color/white</item>
+        <item name="colorTextNormal">@color/white</item>
+        <item name="colorTextSecond">@color/white</item>
+        <item name="colorTextHoliday">@color/dark_holiday</item>
+        <item name="colorHoliday">@color/dark_holiday</item>
+        <item name="colorTextDayName">@color/white</item>
+        <item name="colorTextAthan">@color/white</item>
+        <item name="colorSelectDay">@color/dark_select_day</item>
+
+        <item name="android:scrollbars">none</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+    </style>
+
+
+    <style name="ShadowTextStyle">
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+    </style>
+
+    <style name="DialogAnimation" parent="@android:style/Theme.Dialog">
+
+    </style>
+
+    <style name="CustomRatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#AEB4B4</item>
+        <item name="colorControlActivated">#FCE740</item>
+    </style>
+
+    <style name="DarkTheme_dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorPrimaryDark">@color/dark_primary_dark</item>
+        <item name="colorAccent">@color/dark_accent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorCard">@color/black</item>
+        <item name="colorBackground">@color/black</item>
+        <item name="colorTextPrimary">@color/white</item>
+        <item name="colorTextNormal">@color/white</item>
+        <item name="colorTextSecond">@color/white</item>
+        <item name="colorTextHoliday">@color/dark_holiday</item>
+        <item name="colorHoliday">@color/dark_holiday</item>
+        <item name="colorTextDayName">@color/white</item>
+        <item name="colorTextAthan">@color/white</item>
+        <item name="colorSelectDay">@color/dark_select_day</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/dark_accent</item>
+        <item name="colorControlActivated">@color/dark_primary</item>
+    </style>
+
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+
+    <com.arpitas.persiancalender.preferences.ShapedPreferenceCategory
+        android:title="@string/pray_times_calculation_setting"
+        android:layout="@layout/preference_category">
+
+        <com.arpitas.persiancalender.preferences.ShapedListPreference
+            android:defaultValue="Tehran"
+            android:entries="@array/prayMethodsNames"
+            android:entryValues="@array/prayMethodsKeys"
+            android:key="PrayTimeMethod"
+            android:layout="@layout/preference_category"
+            android:summary="@string/pray_methods_calculation"
+            android:title="@string/pray_methods" />
+
+        <com.arpitas.persiancalender.preferences.LocationPreference
+            android:key="Location"
+            android:summary="@string/location_help"
+            android:layout="@layout/preference_category"
+            android:title="@string/location" />
+
+        <com.arpitas.persiancalender.preferences.AthanNumericPreference
+            android:defaultValue="0"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
+            android:layout="@layout/preference_category"
+            android:key="Latitude"
+            android:title="@string/latitude" />
+
+        <com.arpitas.persiancalender.preferences.AthanNumericPreference
+            android:defaultValue="0"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
+            android:layout="@layout/preference_category"
+            android:key="Longitude"
+            android:title="@string/longitude" />
+
+        <com.arpitas.persiancalender.preferences.AthanNumericPreference
+            android:defaultValue="0"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
+            android:layout="@layout/preference_category"
+            android:key="Altitude"
+            android:summary="@string/altitude_praytime"
+            android:title="@string/altitude" />
+
+    </com.arpitas.persiancalender.preferences.ShapedPreferenceCategory>
+
+    <com.arpitas.persiancalender.preferences.ShapedPreferenceCategory
+        android:key="Athan"
+        android:layout="@layout/preference_category"
+        android:title="@string/athan">
+
+        <com.arpitas.persiancalender.preferences.AthanNumericPreference
+            android:inputType="numberSigned"
+            android:key="AthanGap"
+            android:layout="@layout/preference_category"
+            android:summary="@string/athan_gap_summary"
+            android:title="@string/athan_gap" />
+
+        <com.arpitas.persiancalender.preferences.PrayerSelectPreference
+            android:key="AthanAlarm"
+            android:layout="@layout/preference_category"
+            android:summary="@string/athan_alarm_summary"
+            android:title="@string/athan_alarm" />
+
+        <com.arpitas.persiancalender.preferences.AthanVolumePreference
+            android:key="AthanVolume"
+            android:summary="@string/athan_volume_summary"
+            android:layout="@layout/preference_category"
+            android:title="@string/athan_volume" />
+        <com.arpitas.persiancalender.preferences.AthanVolumePreference
+
+            android:summary=""
+            android:title="" />
+    </com.arpitas.persiancalender.preferences.ShapedPreferenceCategory>
+
+</PreferenceScreen>

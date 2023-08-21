@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.2'
+
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+
+        google()
+        maven { url "https://maven.google.com/" }
+
+        maven {
+            url 'https://swisscodemonkeys.github.io/appbrain-sdk/maven'
+        }
+    }
+}

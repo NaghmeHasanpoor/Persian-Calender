@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layoutDirection="ltr">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:text="@string/desc_warning_dialog"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/sahel"/>
+
+    <LinearLayout
+        android:id="@+id/lExit_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/txt_event_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/exit"
+            android:textSize="16sp"
+            android:textColor="@color/dark_primary"
+            android:fontFamily="@font/sahelblack"/>
+
+    </LinearLayout>
+
+</LinearLayout>

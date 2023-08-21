@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="prayMethodsNames">
+        <item>Method1</item>
+        <item>Method2</item>
+        <item>Method3</item>
+        <item>Method4</item>
+        <item>Method5</item>
+        <item>Method6</item>
+        <item>Method7</item>
+    </string-array>
+
+    <string-array name="colorNames">
+        <item>White</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Black</item>
+    </string-array>
+
+    <string-array name="prayerTimeNames">
+        <item>FAJR</item>
+        <item>DHUHR</item>
+        <item>ASR</item>
+        <item>MAGHRIB</item>
+        <item>ISHA</item>
+    </string-array>
+
+    <string-array name="drawerTitles">
+        <item>Language</item>
+        <item>Calendar</item>
+        <item>Compass</item>
+        <item>Location</item>
+        <item>Apps</item>
+        <item>Rate us</item>
+        <item>Privacy &amp;Policy</item>
+
+    </string-array>
+    <string-array name="me">
+        <item>Language</item>
+        <item>Calendar</item>
+        <item>Compass</item>
+        <item>Location</item>
+        <item>Share</item>
+        <item>Rate us</item>
+        <item>Privacy &amp;Policy</item>
+    </string-array>
+
+    <string-array name="prayMethodsKeys" translatable="false">
+        <item>Jafari</item>
+        <item>MWL</item>
+        <item>ISNA</item>
+        <item>Egypt</item>
+        <item>Makkah</item>
+        <item>Karachi</item>
+        <item>Tehran</item>
+    </string-array>
+
+
+    <string-array name="colorKeys" translatable="false">
+        <item>#ffffffff</item>
+        <item>#ffe65100</item>
+        <item>#ff00796b</item>
+        <item>#ff202020</item>
+    </string-array>
+
+    <string-array name="languageNames" translatable="false">
+        <item>Farsi</item>
+        <item>Dari</item>
+        <item>Pashtoo</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="languageKeys" translatable="false">
+        <item>fa</item>
+        <item>fa-AF</item>
+        <item>ps</item>
+        <item>en</item>
+    </string-array>
+
+
+    <string-array name="prayerTimeKeys" translatable="false">
+        <item>FAJR</item>
+        <item>DHUHR</item>
+        <item>ASR</item>
+        <item>MAGHRIB</item>
+        <item>ISHA</item>
+    </string-array>
+
+    <string-array name="drawerIcons" translatable="false">
+        <item>@drawable/flag_en</item>
+        <item>@drawable/calender_icon</item>
+        <item>@drawable/compass_icon</item>
+        <item>@drawable/setting_icon</item>
+        <item>@drawable/share_icon</item>
+        <item>@drawable/rate_icon</item>
+        <item>@drawable/privacy_icon</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dark_primary">#007d64</color>
+    <color name="dark_primary_dark">#272727</color>
+    <color name="dark_accent">#5B5959</color>
+
+    <color name="dark_holiday">#fcb926</color>
+    <color name="qibla_color">#888</color>
+    <color name="dark_select_day">#00BECD</color>
+    <color name="white">#ffffff</color>
+    <color name="white1">#0CFFFFFF</color>
+    <color name="white2">#78FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="semiTransparentWhite">#40FFFFFF</color>
+    <color name="transparent">#12000000</color>
+
+    <color name="star">#FBE136</color>
+    <color name="calenderBackgroundColorStart">#007d64</color>
+    <color name="calenderBackgroundColorEnd">#19af64</color>
+    <color name="c1">#007d64</color>
+    <color name="c2">#038464</color>
+    <color name="c3">#078a64</color>
+    <color name="c4">#19af64</color>
+    <color name="c5">#009664</color>
+    <color name="holiday">#ff4081</color>
+
+    <color name="gray_2">#DCD9D9</color>
+    <color name="gray_3">#757373</color>
+</resources>

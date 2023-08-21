@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">تقویم فارسی</string>
+
+    <string name="latitude">عرض جغرافیایی</string>
+    <string name="longitude">طول جغرافیایی</string>
+    <string name="settings">تنظیمات</string>
+
+    <string name="pray_times_calculation_setting">تنظیمات محاسبهٔ اوقات شرعی و قبله‌نما</string>
+    <string name="pray_methods">شیوه‌های محاسبه</string>
+    <string name="pray_methods_calculation">شیوه‌های محاسبهٔ اوقات شرعی</string>
+    <string name="altitude">ارتفاع</string>
+    <string name="altitude_praytime">به متر (اختیاری)</string>
+    <string name="location">موقعیت</string>
+    <string name="location_help">اگر در فهرست نبود، مختصات را وارد کنید</string>
+    <string name="iran_time">وقت ایران</string>
+    <string name="qibla_compass">قطب‌نما/قبله‌نما</string>
+    <string name="compass">قطب‌نما</string>
+    <string name="compass_not_found">حسگر قطب‌نما پیدا نشد</string>
+
+    <string name="athan">اذان</string>
+    <string name="athan_alarm_summary">برای این نمازها اذان گفته شود</string>
+    <string name="athan_alarm">هشدار اذان</string>
+    <string name="athan_volume_summary">تنظیم حجم صدای اذان</string>
+    <string name="athan_volume">حجم صدا</string>
+    <string name="tap_to_stop_athan">برای توقف اذان ضربه بزنید</string>
+    <string name="playing_athan">در حال پخش اذان</string>
+    <string name="athan_disabled_summary">برای فعال کردن تنظیمات اذان، مکانی را از فهرست برگزیده، یا مشخصات موقعیتتان را وارد کنید</string>
+    <string name="athan_gap">فاصلهٔ بین اذان و هشدار</string>
+    <string name="athan_gap_summary">چند دقیقه پیش از اذان، هشدار به صدا در آورده شود</string>
+    <string name="closeDrawer">بستن</string>
+    <string name="openDrawer">گشودن</string>
+    <string name="azan1">اذان صبح</string>
+    <string name="azan2">اذان ظهر</string>
+    <string name="azan3">عصر</string>
+    <string name="azan4">اذان مغرب</string>
+    <string name="azan5">عشاء</string>
+    <string name="aftab1">طلوع آفتاب</string>
+    <string name="aftab2">غروب آفتاب</string>
+    <string name="aftab3">نیمه‌شب شرعی</string>
+    <string name="owghat">اوقات شرعی</string>
+    <string name="events">رویداد‌ها</string>
+    <string name="today">امروز</string>
+
+    <string name="in_city_time">به افق</string>
+
+    <string name="date_copied_clipboard">به حافظه رونوشت شد</string>
+    <string name="stop">توقف</string>
+
+    <string name="rateTitle">امتیاز به برنامه</string>
+    <string name="rateUs">امتیاز پنج ستاره شما به پیشرفت برنامه کمک خواهد کرد .</string>
+    <string name="got_ur_rate">نظر شما با موفقیت ثبت شد.</string>
+
+    <string name="txtTwoStepForExitApp">برای خروج از برنامه مجددا دکمه برگشت را فشار دهید.</string>
+
+    <string name="update_title">به روز رسانی</string>
+    <string name="download_completed">آپدیت جدیدی برای برنامه دانلود شده است.لطفا برنامه را مجددا باز کنید</string>
+    <string name="restart">شروع مجدد</string>
+    <string name="failed_entering_app">در حال حاضر امکان ورود به برنامه وجود ندارد</string>
+
+    <string name="update_message">نسخه جدید برنامه موجود است .آیا مایل به آپدیت هستید؟</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <string name="rate_title">ثبت امتیاز</string>
+    <string name="rating_bar">امتیاز شما ثبت شد.</string>
+
+    <string name="desc_warning_dialog">در حال حاضر امکان ورود به برنامه وجود ندارد.</string>
+    <string name="new_app_ready">برنامه جدید آماده است!</string>
+    <string name="install"> نصب!</string>
+    <string name="update_done">آپدیت انجام شد.</string>
+    <string name="exit">خروج</string>
+    <string name="register_point">امتیاز شما ثبت شد.</string>
+
+    <string name="title_dialog_about">اوقات شرعی</string>
+    <string name="desc_dialog_about">برای نمایش اوقات شرعی از قسمت تنظیمات موقعیت مکانی خود را انتخاب کنید.</string>
+    <string name="my_events">رویدادهای من</string>
+    <string name="application">اپلیکیشن</string>
+    <string name="get_from">دریافت از:</string>
+    <string name="share_with">اشتراک گذاری با</string>
+    <string name="pls_insert_event_name">لطفا نام رویداد را وارد کنید!</string>
+    <string name="event_has_submitted">رویداد ثبت شد...</string>
+
+    <string name="new_update">نسخه جدید قرآن آماده است، لطفا برنامه را به نسخه جدید بروزرسانی کنید.</string>
+    <string name="cancel_update">انصراف</string>
+    <string name="accept_update">بروزرسانی</string>
+    <string name="rate_dialog_text" > امتیاز پنج ستاره شما به ما در پیشرفت و بالا بردن کیفیت برنامه کمک می کند.</string>
+    <string name="go_today">برو به امروز</string>
+    <string name="add_new_event">اضافه کردن رویداد جدید</string>
+    <string name="insert_event_name">نام رویداد را وارد کنید</string>
+    <string name="submit_event">ثبت رویداد</string>
+    <string name="bashe">باشه</string>
+
+    <string name="ok">تایید</string>
+    <string name="pls_select_your_city">لطفا شهر خود را انتخاب کنید.</string>
+    <string name="pls_select_time_of_azan">انتخاب کنید برای چه نمازهایی اذان گفته شود.</string>
+    <string name="delete">حذف</string>
+    <string name="are_you_sure_del">آیا اطمینان دارید می خواهید</string>
+    <string name="desc_war_show_owghat">برای نمایش اوقات شرعی از قسمت تنظیمات موقعیت مکانی خود را انتخاب کنید.</string>
+    <string name="done_delete">را حذف کنید !</string>
+    <string name="choose_language">زبان خود را انتخاب کنید</string>
+    <string name="toast_language">لطفا زبان مورد نظر خود را انتخاب کنید!</string>
+
+    <string name="persian_language">فارسی</string>
+    <string name="english_language">انگلیسی</string>
+</resources>

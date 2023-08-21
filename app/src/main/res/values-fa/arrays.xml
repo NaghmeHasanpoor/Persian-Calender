@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="prayMethodsNames">
+        <item>شیعهٔ دوازده امامی، انجمن لوا، قم</item>
+        <item>اتّحادیهٔ جهانی اسلام،‌ عربستان سعودی</item>
+        <item>جامعهٔ اسلامی آمریکای شمالی</item>
+        <item>مرجع عمومی تحقیقات مصر</item>
+        <item>دانشگاه امّ‌القری،‌ مکه</item>
+        <item>دانشگاه علوم اسلامی،‌ کراچی</item>
+        <item>انجمن ژئوفیزیک، دانشگاه تهران</item>
+    </string-array>
+
+    <string-array name="colorNames">
+        <item>سپید</item>
+        <item>سرخ</item>
+        <item>سبز</item>
+        <item>سیاه</item>
+    </string-array>
+
+    <string-array name="prayerTimeNames">
+        <item>صبح</item>
+        <item>ظهر</item>
+        <item>عصر</item>
+        <item>مغرب</item>
+        <item>عشاء</item>
+    </string-array>
+
+
+    <string-array name="drawerTitles">
+        <item>زبان</item>
+        <item>تقویم</item>
+        <item>قطب‌نما</item>
+        <item>موقعیت</item>
+        <item>برنامه ها</item>
+        <item>امتیاز به برنامه</item>
+        <item>Privacy &amp;Policy</item>
+
+    </string-array>
+
+    <string-array name="me">
+        <item>زبان</item>
+        <item>تقویم</item>
+        <item>قطب‌نما</item>
+        <item>موقعیت</item>
+        <item>اشتراک گذاری</item>
+        <item>امتیاز به برنامه</item>
+        <item>Privacy &amp;Policy</item>
+    </string-array>
+
+    <string-array name="drawerIcons" translatable="false">
+        <item>@drawable/flag_fa</item>
+        <item>@drawable/calender_icon</item>
+        <item>@drawable/compass_icon</item>
+        <item>@drawable/setting_icon</item>
+        <item>@drawable/share_icon</item>
+        <item>@drawable/rate_icon</item>
+        <item>@drawable/privacy_icon</item>
+    </string-array>
+
+</resources>

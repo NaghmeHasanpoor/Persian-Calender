@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="500dp"
+    android:background="@color/black"
+    android:layout_height="600dp">
+
+    <EditText
+        android:layout_width="500dp"
+        android:layout_height="30dp"
+        android:id="@+id/txtedit"
+        android:layout_gravity="right" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/card_margin"
+        android:layout_gravity="center_horizontal"
+        android:background="#F44336"
+        android:layout_height="@dimen/grid_calendar_height" />
+
+</LinearLayout>
