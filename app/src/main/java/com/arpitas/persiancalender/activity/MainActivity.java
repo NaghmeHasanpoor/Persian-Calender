@@ -134,13 +134,9 @@ public class MainActivity extends BaseActivity {
       window.setAttributes(winParams);
       window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-      if (!Utils.getInstance(MainActivity.this).isServiceRunning(ApplicationService.class)) {
+      if (!Utils.getInstance(this).isServiceRunning(ApplicationService.class)) {
          try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-               startForegroundService(new Intent(MainActivity.this, ApplicationService.class));
-            } else {
-               startService(new Intent(MainActivity.this, ApplicationService.class));
-            }
+               startService(new Intent(this, ApplicationService.class));
          } catch (Exception e) {
             e.printStackTrace();
          }
