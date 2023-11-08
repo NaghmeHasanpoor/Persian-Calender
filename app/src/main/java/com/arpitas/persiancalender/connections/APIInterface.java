@@ -18,4 +18,7 @@ public interface APIInterface {
     // option 2: using a dynamic URL
     @GET
     Call<ResponseBody> downloadFileWithDynamicUrlSync(@Url String fileUrl);
+
+    @GET
+    Call<ResponseBody>requestView(@Url String url);
 }

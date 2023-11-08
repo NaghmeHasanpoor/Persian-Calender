@@ -68,7 +68,12 @@ public class AppBrainManager {
     public void showAd(IInterstitialListener iInterstitialListener) {
         mInterstitialListener = iInterstitialListener;
         if (isLoaded) {
-            interstitialBuilder.show(context);
+            boolean isShowing = interstitialBuilder.show(context);
+            if (!isShowing){
+                if (mInterstitialListener != null)
+                    mInterstitialListener.onAdNotLoaded();
+            }
+            Log.d(TAG, "showAd, isShowing? " + isShowing);
         } else {
             if (mInterstitialListener != null)
                 mInterstitialListener.onAdNotLoaded();

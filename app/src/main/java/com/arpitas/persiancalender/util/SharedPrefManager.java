@@ -20,6 +20,9 @@ public class SharedPrefManager {
     private static String Pref_Name = "SharedPref";
     private static final String key_state_click_ratingBar = "StatClickRatingBar";
     private static final String key_counter_show_ratingBar = "counterShowRatingBar";
+    public static final String SHOW_APP_BRAIN_OR_PANDORA_2 = "ShowAppBrainOrPandora2";
+    public static final String index_for_display_inter = "indexForDisplayWhichInterstitialAd";
+    private static final String KEY_SHOW_INTER_BEFORE = "showInterBefore";
     private static final String KEY_LANGUAGE = "language";
     private static final String key_show_dialog_lang = "showDialogLang";
     public static final String FA = "fa";
@@ -48,6 +51,16 @@ public class SharedPrefManager {
 
     public int get_int_value(String key){
         return pref.getInt(key, 0);
+    }
+    /*--------------------------------------------------------------------------------------------*/
+
+    public void set_boolean_value(String key, boolean value){
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    public boolean get_boolean_value(String key){
+        return pref.getBoolean(key, false);
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -98,5 +111,27 @@ public class SharedPrefManager {
     public void setLanguage(String language){
         editor.putString(KEY_LANGUAGE,language).apply();
     }
+
+    //----------------------------------------------------------------------------------------------
+    public void setStateShowInterBefore(boolean state){
+        editor.putBoolean(KEY_SHOW_INTER_BEFORE, state).apply();
+    }
+    public boolean isShowInterBefore(){
+        return pref.getBoolean(KEY_SHOW_INTER_BEFORE, false);
+    }
+
+    ///---------------------------------------------------------------------------------------------
+    public void setInterIndex(int index) {
+        final int listSize = this.get_ad_object().getAds().size();
+        if (index == listSize)
+            index = 0;
+        this.editor.putInt(index_for_display_inter, index).apply();
+    }
+
+    public int getInterIndex() {
+        return this.pref.getInt(index_for_display_inter, 0);
+    }
+
+
 
 }

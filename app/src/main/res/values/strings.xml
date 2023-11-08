@@ -41,6 +41,7 @@
     <string name="owghat">Prayer Times</string>
     <string name="events">Events</string>
     <string name="today">Today</string>
+    <string name="loading_ads">Loading ads\nPlease wait</string>
 
     <string name="in_city_time">In Time of</string>
 

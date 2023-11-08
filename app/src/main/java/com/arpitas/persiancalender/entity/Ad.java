@@ -1,6 +1,7 @@
 package com.arpitas.persiancalender.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Ad implements Serializable  {
     private String id = "", package_name = "", privacy_policy_google = "";
@@ -15,6 +16,10 @@ public class Ad implements Serializable  {
     private Dialog_ dialog = new Dialog_();
 
     private String content_rating = "";
+
+    private boolean cir;
+
+    private List<AdItem> ads;
 
     public Ad(){}
 
@@ -144,5 +149,21 @@ public class Ad implements Serializable  {
 
     public void setAppOpenId(String appOpenId) {
         this.appOpenId = appOpenId;
+    }
+
+    public boolean isCir() {
+        return cir;
+    }
+
+    public void setCir(boolean cir) {
+        this.cir = cir;
+    }
+
+    public List<AdItem> getAds() {
+        return ads;
+    }
+
+    public void setAds(List<AdItem> ads) {
+        this.ads = ads;
     }
 }

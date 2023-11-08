@@ -25,6 +25,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -36,17 +37,20 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceViewHolder;
 
 import com.appbrain.AppBrainBanner;
 import com.appbrain.BannerListener;
+import com.arpitas.persiancalender.entity.AdItem;
 import com.google.android.gms.ads.AdSize;
 import com.arpitas.persiancalender.calendar.AbstractDate;
 import com.arpitas.persiancalender.calendar.CivilDate;
@@ -93,6 +97,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -736,7 +741,7 @@ public class Utils {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_IMMUTABLE);
             } else {
-                pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
+                pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_IMMUTABLE);
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -1045,7 +1050,7 @@ public class Utils {
     }
 
     /*--------------------------------------------------------------------------------------------*/
-    public static Ad parse_ad_json(String jsonStr) {
+    public static Ad parse_ad_json(String jsonStr, Context context) {
         Ad ad = new Ad();
         try {
             JSONObject object = new JSONObject(jsonStr);
@@ -1095,6 +1100,39 @@ public class Utils {
 
             if (!object.isNull("timeout")) {
                 ad.setTimeout(object.getString("timeout"));
+            }
+
+            if (object.has("cir") && !object.isNull("cir"))
+                ad.setCir(object.getBoolean("cir"));
+
+            ///ads//
+            if (object.has("ads") && !object.isNull("ads")) {
+                final JSONObject ad_object = object.getJSONObject("ads");
+                final JSONArray ad_items = ad_object.getJSONArray("Items");
+                final List<AdItem> itemList = new ArrayList<>();
+
+                for (int j = 0; j < ad_items.length(); j++) {
+                    final AdItem item = new AdItem();
+                    item.setId(ad_items.getJSONObject(j).getString("id"));
+                    item.setTitle(ad_items.getJSONObject(j).getString("title"));
+                    item.setSubtitle(ad_items.getJSONObject(j).getString("subtitle"));
+                    item.setPeriod(ad_items.getJSONObject(j).getInt("period"));
+                    item.setAction(ad_items.getJSONObject(j).getString("action"));
+                    item.setAction_type(ad_items.getJSONObject(j).getString("action_type"));
+                    item.setImage(ad_items.getJSONObject(j).getString("image"));
+                    item.setView(ad_items.getJSONObject(j).getString("view"));
+                    item.setPackageNametoExist(ad_items.getJSONObject(j).getString("package_name_to_exist"));
+                    if (!item.getPackageNametoExist().isEmpty()) {
+                        if (Utils.isPackageInstalled(item.getPackageNametoExist(), context)) {
+                            itemList.add(item);
+                        }
+                    } else {
+                        itemList.add(item);
+                    }
+
+                }
+
+                ad.setAds(itemList);
             }
 
             /*AutoUpdate*/
@@ -1173,6 +1211,9 @@ public class Utils {
                     dialog.setDialog_skip_count(dli_object.getInt("dlsc"));
                 }
 
+                if (dli_object.has("dllast") && !dli_object.isNull("dllast"))
+                    dialog.setDllast(dli_object.getBoolean("dllast"));
+
                 ad.setDialog(dialog);
             }
             /*Content Rating*/
@@ -1249,5 +1290,39 @@ public class Utils {
 
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWidth);
 //        return AdSize.getCurrentOrientationBannerAdSizeWithWidth(context, adWidth);
+    }
+
+    //----------------------------------------------------------------------------------------------
+    static AlertDialog progressDialog;
+
+    public static void showProgressBar(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.fragment_progress_dialog, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view);
+        progressDialog = builder.create();
+        progressDialog.setCancelable(false);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        if (!((Activity) context).isFinishing())
+            progressDialog.show();
+    }
+
+    public static void dismissProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+    }
+
+    public static boolean isPackageInstalled(final String packageName, final Context context) {
+        try {
+
+            final PackageManager pm = context.getPackageManager();
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+
+            return true;
+        } catch (final Exception e) {
+            return false;
+        }
     }
 }

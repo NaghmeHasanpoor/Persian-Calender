@@ -11,6 +11,8 @@ public class Constants {
     public static final String reques_one = "requestOne";
     public static final String key_ad_object = "adObject";
 
+    public static boolean is_valid_ads = false;
+
     public static final String admob_appId_key_shared = "admobAppId";
     public static final String admob_interstitial_id_key_shared = "admobInterstitialId";
     public static final String admob_banner_key_shared = "admobBanner";
@@ -56,6 +58,9 @@ public class Constants {
     public static final boolean DEFAULT_WIDGET_CLOCK = true;
     public static final boolean DEFAULT_NOTIFY_DATE = true;
     public static final int DEFAULT_ATHAN_VOLUME = 1;
+
+    public static boolean isGoogleAdMob;
+    public static boolean isGoogleAppBrain;
 
     public static final String LIGHT_THEME = "LightTheme";
     public static final String DARK_THEME = "DarkTheme";

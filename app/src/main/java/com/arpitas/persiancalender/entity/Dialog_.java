@@ -11,6 +11,7 @@ public class Dialog_ implements Serializable {
             , dialog_button_ok = "", dialog_button_cancel = "";
 
     private int dialog_skip_count = 0;
+    private boolean dllast;
 
     public Dialog_(){}
 
@@ -84,5 +85,13 @@ public class Dialog_ implements Serializable {
 
     public void setDialog_skip_count(int dialog_skip_count) {
         this.dialog_skip_count = dialog_skip_count;
+    }
+
+    public boolean isDllast() {
+        return dllast;
+    }
+
+    public void setDllast(boolean dllast) {
+        this.dllast = dllast;
     }
 }

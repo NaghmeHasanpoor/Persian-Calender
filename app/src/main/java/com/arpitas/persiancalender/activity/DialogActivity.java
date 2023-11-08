@@ -57,18 +57,18 @@ public class DialogActivity extends BaseActivity {
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         setContentView(R.layout.activity_dialog);
 
-        getWindow().setLayout((getDisplaySize(1)*2)/3,(getDisplaySize(0)*8)/9);
+        getWindow().setLayout((getDisplaySize(1) * 2) / 3, (getDisplaySize(0) * 8) / 9);
 
 
-        pager =  findViewById(R.id.calendar_pager);
+        pager = findViewById(R.id.calendar_pager);
         pager.setAdapter(new CalendarAdapterDialog(this.getSupportFragmentManager()));
         pager.setCurrentItem(CalendarFragment.monthViewPager.getCurrentItem());
-        next =  findViewById(R.id.next);
-        pre =  findViewById(R.id.prev);
-        mah =  findViewById(R.id.mah);
+        next = findViewById(R.id.next);
+        pre = findViewById(R.id.prev);
+        mah = findViewById(R.id.mah);
 
-        title =  findViewById(R.id.title);
-        date =  findViewById(R.id.date);
+        title = findViewById(R.id.title);
+        date = findViewById(R.id.date);
         ok = findViewById(R.id.ok);
         usernameInput = findViewById(R.id.txtedit);
         date.setText(CalendarFragment.weekDayName.getText().toString() + " " + CalendarFragment.shamsiDate.getText().toString());
@@ -77,7 +77,8 @@ public class DialogActivity extends BaseActivity {
         next.setOnClickListener(view -> pager.setCurrentItem(pager.getCurrentItem() + 1));
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
@@ -94,15 +95,15 @@ public class DialogActivity extends BaseActivity {
         });
     }
 
-    private int getDisplaySize(int parametr){
+    private int getDisplaySize(int parametr) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
-        if(parametr==0)
+        if (parametr == 0)
             return height;
         else
-        return width;
+            return width;
     }
 
     public TextView text() {
@@ -117,8 +118,9 @@ public class DialogActivity extends BaseActivity {
 
     public void ok(View view) {
         if (usernameInput.getText().toString().trim().length() != 0) {
-            show_interstitial_ad(Constants.key_ad_event_click_submit_event);
-        }else {
+            shared.set_boolean_value(SharedPrefManager.SHOW_APP_BRAIN_OR_PANDORA_2, true);
+            show_interstitial_ad(findViewById(R.id.app_main_layout), Constants.key_ad_event_click_submit_event);
+        } else {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.pls_insert_event_name), Toast.LENGTH_LONG).show();
         }
     }
@@ -126,13 +128,13 @@ public class DialogActivity extends BaseActivity {
     @Override
     public void onShowInterstitialResult(String key, boolean result) {
         super.onShowInterstitialResult(key, result);
-        if (key.equalsIgnoreCase(Constants.key_ad_event_click_submit_event)){
+        if (key.equalsIgnoreCase(Constants.key_ad_event_click_submit_event)) {
             event_click_submit_event();
             Log.e("interstitial_result", result + "");
         }
     }
 
-    private void event_click_submit_event(){
+    private void event_click_submit_event() {
         try {
             String s = datee;
             MyEventsSqlite db;
@@ -147,7 +149,7 @@ public class DialogActivity extends BaseActivity {
             CalendarFragment.setListViewHeightBasedOnChildren(CalendarFragment.list);
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.event_has_submitted), Toast.LENGTH_LONG).show();
             finish();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

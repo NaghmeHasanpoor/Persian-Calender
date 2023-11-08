@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arpitas.persiancalender.util.ImageAdsManager;
 import com.google.android.gms.ads.AdView;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -163,7 +164,7 @@ public class MainActivity extends BaseActivity {
          adMobManager = AdMobManager.getInstance(this);
          appBrainManager = AppBrainManager.getInstance(this);
       }
-      if (ad == null || ad.isIs_google_admob()) {
+      if ((ad == null || ad.isIs_google_admob()) && !Constants.is_valid_ads) {
          adMobManager.showFirstBanner(advertiseBannerLayout);
       } else if (ad != null && ad.isIs_google_appbrain()) {
          Utils.set_appBrain_banner(this, advertiseBannerLayout);
@@ -172,67 +173,91 @@ public class MainActivity extends BaseActivity {
       adsBtn = findViewById(R.id.ad);
       adsBtn.setVisibility(ad == null || ad.isIs_google_admob() || ad.isIs_google_appbrain() ? View.VISIBLE : View.INVISIBLE);
       adsBtn.setOnClickListener(view -> {
-         try {
-            if (ad != null) {
-               if (ad.isIs_google_admob() && adMobManager != null && !isAdMobShowed) {
-                  adMobManager.showInterstitialAd(this, new AdMobManager.IInterstitialListener() {
-                     @Override
-                     public void onAdClosed() {
-                        Log.e(TAG, "Interstitial Admob onAdClosed!");
-                        isAdMobShowed = true;
-                     }
-
-                     @Override
-                     public void onAdNotLoaded() {
-                        Log.e(TAG, "Interstitial Admob onAdNotLoaded!");
-                        if (ad.isIs_google_appbrain() && appBrainManager != null) {
-                           appBrainManager.showAd(new AppBrainManager.IInterstitialListener() {
-                              @Override
-                              public void onAdClosed() {
-                                 Log.e(TAG, "Interstitial AppBrain onAdClosed!");
-                              }
-
-                              @Override
-                              public void onAdNotLoaded() {
-                                 Log.e(TAG, "Interstitial AppBrain onAdNotLoaded!");
-                              }
-                           });
-                        } else {
+         if (Constants.is_valid_ads) {
+            if (shared.get_boolean_value(SharedPrefManager.SHOW_APP_BRAIN_OR_PANDORA_2)) {
+               if (ad != null && ad.isIs_google_appbrain()) {
+                  appBrainManager = AppBrainManager.getInstance(this);
+                  Utils.showProgressBar(this);
+                  new Handler().postDelayed(() -> {
+                     Utils.dismissProgress();
+                     appBrainManager.showAd(new AppBrainManager.IInterstitialListener() {
+                        @Override
+                        public void onAdClosed() {
+                           shared.set_boolean_value(SharedPrefManager.SHOW_APP_BRAIN_OR_PANDORA_2, false);
                         }
-                     }
-                  });
-               } else if (ad.isIs_google_appbrain() && appBrainManager != null) {
-                  appBrainManager.showAd(new AppBrainManager.IInterstitialListener() {
-                     @Override
-                     public void onAdClosed() {
-                        Log.e(TAG, "Interstitial AppBrain onAdClosed!");
-                     }
 
-                     @Override
-                     public void onAdNotLoaded() {
-                        Log.e(TAG, "Interstitial AppBrain onAdNotLoaded!");
-                     }
-                  });
-               } else {
+                        @Override
+                        public void onAdNotLoaded() {
+                           shared.set_boolean_value(SharedPrefManager.SHOW_APP_BRAIN_OR_PANDORA_2, true);
+                        }
+                     });
+                  }, 800);
                }
             } else {
-               if (adMobManager != null) {
-                  adMobManager.showInterstitialAd(this, new AdMobManager.IInterstitialListener() {
-                     @Override
-                     public void onAdClosed() {
-                        Log.e(TAG, "Interstitial Admob onAdClosed!");
-                     }
-
-                     @Override
-                     public void onAdNotLoaded() {
-                        Log.e(TAG, "Interstitial Admob onAdNotLoaded!");
-                     }
-                  });
-               } else {
-               }
+               ImageAdsManager.getInstance(this).displayImageAd(findViewById(R.id.app_main_layout), state -> {});
             }
-         } catch (Exception e) {
-            e.printStackTrace();
+         } else {
+            try {
+               if (ad != null) {
+                  if (ad.isIs_google_admob() && adMobManager != null && !isAdMobShowed) {
+                     adMobManager.showInterstitialAd(this, new AdMobManager.IInterstitialListener() {
+                        @Override
+                        public void onAdClosed() {
+                           Log.e(TAG, "Interstitial Admob onAdClosed!");
+                           isAdMobShowed = true;
+                        }
+
+                        @Override
+                        public void onAdNotLoaded() {
+                           Log.e(TAG, "Interstitial Admob onAdNotLoaded!");
+                           if (ad.isIs_google_appbrain() && appBrainManager != null) {
+                              appBrainManager.showAd(new AppBrainManager.IInterstitialListener() {
+                                 @Override
+                                 public void onAdClosed() {
+                                    Log.e(TAG, "Interstitial AppBrain onAdClosed!");
+                                 }
+
+                                 @Override
+                                 public void onAdNotLoaded() {
+                                    Log.e(TAG, "Interstitial AppBrain onAdNotLoaded!");
+                                 }
+                              });
+                           } else {
+                           }
+                        }
+                     });
+                  } else if (ad.isIs_google_appbrain() && appBrainManager != null) {
+                     appBrainManager.showAd(new AppBrainManager.IInterstitialListener() {
+                        @Override
+                        public void onAdClosed() {
+                           Log.e(TAG, "Interstitial AppBrain onAdClosed!");
+                        }
+
+                        @Override
+                        public void onAdNotLoaded() {
+                           Log.e(TAG, "Interstitial AppBrain onAdNotLoaded!");
+                        }
+                     });
+                  } else {
+                  }
+               } else {
+                  if (adMobManager != null) {
+                     adMobManager.showInterstitialAd(this, new AdMobManager.IInterstitialListener() {
+                        @Override
+                        public void onAdClosed() {
+                           Log.e(TAG, "Interstitial Admob onAdClosed!");
+                        }
+
+                        @Override
+                        public void onAdNotLoaded() {
+                           Log.e(TAG, "Interstitial Admob onAdNotLoaded!");
+                        }
+                     });
+                  }
+               }
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
          }
       });
 
@@ -511,7 +536,7 @@ public class MainActivity extends BaseActivity {
                } else {
                   int count = shared.getCounterShowRatinfBar();
                   count++;
-                  if (count >= 2) {
+                  if (count >= 2 && !Constants.is_valid_ads) {
                      shared.setCounterShowRatingBar(0);
                      RatingDialog rateDialog = new RatingDialog(MainActivity.this, this::finish);
                      Objects.requireNonNull(rateDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -557,12 +582,12 @@ public class MainActivity extends BaseActivity {
                if (condition && Integer.parseInt(autoUpdate.getLast_version()) > getVersionCode()) {
                   if (type.equalsIgnoreCase("1") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                      checkInAppUpdateAvailability();
-                     prepare_custom_dialog();
+                     checkCustomDialogPermitted();
                   } else if ((type.equalsIgnoreCase("1") && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) || type.equalsIgnoreCase("2")) {
                      show_auto_update_dialog(ad);
                   }
                } else {
-                  prepare_custom_dialog();
+                  checkCustomDialogPermitted();
                }
             } catch (PackageManager.NameNotFoundException e) {
                e.printStackTrace();
@@ -572,7 +597,7 @@ public class MainActivity extends BaseActivity {
                new FetchAppVersionFromGooglePlayStore().execute();
             } catch (Exception e) {
                e.printStackTrace();
-               prepare_custom_dialog();
+               checkCustomDialogPermitted();
             }
          }
       } else {
@@ -619,7 +644,7 @@ public class MainActivity extends BaseActivity {
                show_auto_update_dialog(null);
             } else {
                Log.e(TAG, "incorrect result for new version");
-               prepare_custom_dialog();
+               checkCustomDialogPermitted();
             }
          } catch (Exception e) {
             e.printStackTrace();
@@ -631,7 +656,7 @@ public class MainActivity extends BaseActivity {
       try {
          AutoUpdateDialog autoUpdateDialog = new AutoUpdateDialog(MainActivity.this, ad);
          autoUpdateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-         autoUpdateDialog.setOnCancelListener(dialogInterface -> prepare_custom_dialog());
+         autoUpdateDialog.setOnCancelListener(dialogInterface -> checkCustomDialogPermitted());
          autoUpdateDialog.show();
       } catch (Exception e) {
          e.printStackTrace();
@@ -823,6 +848,24 @@ public class MainActivity extends BaseActivity {
       } catch (Exception e) {
          e.printStackTrace();
          progress.dismiss();
+      }
+   }
+
+   public void checkCustomDialogPermitted() {
+      ad = shared.get_ad_object();
+      if (ad != null) {
+         final AutoUpdate autoUpdate = ad.getAutoUpdate();
+         try {
+            if (!"".equalsIgnoreCase(autoUpdate.getLast_version()) &&
+                    (Integer.parseInt(autoUpdate.getLast_version()) == this.getVersionCode())) {
+               if (null != ad.getDialog() && ad.getDialog().isDllast())
+                  this.prepare_custom_dialog();
+            } else {
+               this.prepare_custom_dialog();
+            }
+         } catch (final PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+         }
       }
    }
 

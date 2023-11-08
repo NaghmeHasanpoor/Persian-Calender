@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.volley.toolbox.Volley;
+import com.arpitas.persiancalender.util.ImageAdsManager;
 import com.google.android.gms.ads.MobileAds;
 import com.arpitas.persiancalender.BuildConfig;
 import com.arpitas.persiancalender.Constants;
@@ -29,12 +30,16 @@ import com.arpitas.persiancalender.util.AppOpenManager.AppOpenListener;
 import com.arpitas.persiancalender.util.LanguageUtil;
 import com.arpitas.persiancalender.util.SharedPrefManager;
 import com.arpitas.persiancalender.util.Utils;
+import com.google.android.ump.ConsentInformation;
+import com.google.android.ump.ConsentRequestParameters;
+import com.google.android.ump.UserMessagingPlatform;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
@@ -56,6 +61,8 @@ public class FirstActivity extends BaseActivity {
    private Long timeout;
    private ImageView mSplash_image;
 
+   private ConsentInformation consentInformation;
+
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       /**
@@ -75,6 +82,11 @@ public class FirstActivity extends BaseActivity {
       shared.set_string_value(Constants.url_two, "X7EyIg@g");
       shared.set_string_value(Constants.url_one, "3J/5%/%&");
       shared.set_string_value(Constants.request_two, "0*g&%cGq");
+      Ad ad = shared.get_ad_object();
+      if (ad != null) {
+         ad.setAds(new ArrayList<>());
+         shared.set_ad_object(ad);
+      }
 
       setupLanguage();
    }
@@ -177,7 +189,8 @@ public class FirstActivity extends BaseActivity {
       /*-------------------------------------------------------*/
       if (!TextUtils.isEmpty(decrypt_url) && !TextUtils.isEmpty(SHA1)) {
 //            decrypt_url += "?package=" + getPackageName();
-         decrypt_url += "?package=" + "com.arpitas.persiancalender";
+         decrypt_url += "?package=" + getPackageName();
+         decrypt_url = decrypt_url.replace("/v3/", "/v4/");
          try {
             String encrypt = Utils.encrypt(getPackageName() + "_" + SHA1, this);
             HashMap<String, String> headers = new HashMap<>();
@@ -193,7 +206,7 @@ public class FirstActivity extends BaseActivity {
                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                   if (response.isSuccessful()) {
                      try {
-                        Ad ad = Utils.parse_ad_json(response.body().string());
+                        Ad ad = Utils.parse_ad_json(response.body().string(), FirstActivity.this);
                         if (ad != null) {
                            shared.set_ad_object(ad);
                         }
@@ -234,26 +247,96 @@ public class FirstActivity extends BaseActivity {
    }
 
    private void initial_ad() {
-      Ad ad = shared.get_ad_object();
-      if (ad != null) {
-         if (ad.isIs_google_admob()) {
-            initial_admob_ads(ad);
-         }
-         if (ad.isIs_google_appbrain()) {
+      ad = new SharedPrefManager(this).get_ad_object();
+      initial_ad_object();
+      if (ad != null && !ad.isCir() && !ad.getAds().isEmpty()) {
+         Constants.is_valid_ads = true;
+
+         if (ad != null && ad.isIs_google_appbrain()) {
+            Constants.isGoogleAppBrain = true;
             check_appbrain_instance();
          }
+
+         showImageInterstitial();
       } else {
-         try {
-            manageAdmobIds();
-         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+         Constants.is_valid_ads = false;
+         if (ad != null && ad.isIs_google_appbrain()) {
+            Constants.isGoogleAppBrain = true;
+            check_appbrain_instance();
+         }
+
+         if (ad == null || ad.isIs_google_admob()) {
+            Constants.isGoogleAdMob = true;
+//                manageAdMobIds();
+            requestAdMobUMP();
          }
       }
-      initial_ad_object();
-      start_next_activity();
    }
 
-   private void initial_admob_ads(Ad ad) {
+   private void showImageInterstitial() {
+      ImageAdsManager.getInstance(this).displayImageAd(findViewById(R.id.layout_splash),
+              state -> start_next_activity());
+   }
+
+
+   private void requestAdMobUMP() {
+//        ConsentDebugSettings debugSettings = new ConsentDebugSettings.Builder(this)
+//                .addTestDeviceHashedId("33BE2250B43518CCDA7DE426D04EE231")
+//                .build();
+      ConsentRequestParameters params = new ConsentRequestParameters
+              .Builder()
+              .setTagForUnderAgeOfConsent(false)
+              .build();
+
+      consentInformation = UserMessagingPlatform.getConsentInformation(this);
+      if (consentInformation.isConsentFormAvailable()) {
+         initial_admob_ads();
+      } else {
+         consentInformation.requestConsentInfoUpdate(
+                 this,
+                 params,
+                 () -> {
+                    //request success
+                    Log.e(TAG, "requestAdMobUMP: " + "hello");
+                    UserMessagingPlatform.loadAndShowConsentFormIfRequired(
+                            this,
+                            loadAndShowError -> {
+                               if (loadAndShowError != null) {
+                                  // Consent gathering failed.
+                                  Log.w("TAGG", String.format("%s: %s",
+                                          loadAndShowError.getErrorCode(),
+                                          loadAndShowError.getMessage()));
+                               }
+
+                               // Consent has been gathered.
+                               initial_admob_ads();
+                               Log.e("TAGG", "requestAdMobUMP: gathered admob");
+                            }
+                    );
+                 },
+                 requestConsentError -> {
+                    // Consent gathering failed.
+                    Log.w("TAGG", String.format("%so: %s",
+                            requestConsentError.getErrorCode(),
+                            requestConsentError.getMessage()));
+
+                    initial_admob_ads();
+                 });
+      }
+   }
+
+//   private void manageAdMobIds() {
+//      MobileAds.initialize(getApplicationContext());
+//      initialAppOpenAd();
+//      check_adMob_instance();
+//      initialMainActivityBanner();
+//
+//
+//      showAppOpenAd();
+//   }
+
+   private void initial_admob_ads() {
+      ad = shared.get_ad_object();
       try {
          String admob_app_id = new String(Base64.decode(ad.getAdmob_app_id(), Base64.DEFAULT), "UTF-8");
          String banner_id = new String(Base64.decode(ad.getAdmob_banner_Id(), Base64.DEFAULT), "UTF-8");
@@ -334,8 +417,8 @@ public class FirstActivity extends BaseActivity {
          }
       }
       MobileAds.initialize(this, initializationStatus -> {
-      });
-      adMobManager = AdMobManager.getInstance(this);
+         });
+         adMobManager = AdMobManager.getInstance(this);
       adMobManager.initAppOpen(this, isAdMobAllowed, appOpenid);
       adMobManager.loadFirstBanner(this, bannerId);
       int count = shared.getCounterShowRatinfBar();
@@ -343,37 +426,43 @@ public class FirstActivity extends BaseActivity {
       if (count >= 2) {
          adMobManager.loadRateBanner(this, rateId);
       }
+
+
+      show_app_open();
    }
 
-   private void start_next_activity() {
+   private void show_app_open() {
       new Handler(Looper.getMainLooper()).postDelayed(() -> {
          if (ad != null) {
             if (ad.isIs_google_admob()) {
+               adMobManager = AdMobManager.getInstance(this);
                adMobManager.showAppOpen(this, new AppOpenListener() {
                   @Override
                   public void onAdDismissed() {
                      if (isDestroyed()) {
                         return;
                      }
-                     startActivity(new Intent(FirstActivity.this, MainActivity.class));
-                     new Handler(Looper.getMainLooper()).postDelayed(FirstActivity.this::finish, 100);
+                     start_next_activity();
                   }
                });
             } else {
                if (isDestroyed()) {
                   return;
                }
-               startActivity(new Intent(FirstActivity.this, MainActivity.class));
-               new Handler(Looper.getMainLooper()).postDelayed(FirstActivity.this::finish, 100);
+               start_next_activity();
             }
          } else {
             if (isDestroyed()) {
                return;
             }
-            startActivity(new Intent(FirstActivity.this, MainActivity.class));
-            new Handler(Looper.getMainLooper()).postDelayed(FirstActivity.this::finish, 100);
+            start_next_activity();
          }
       }, timeout);
+   }
+
+   private void start_next_activity() {
+      startActivity(new Intent(FirstActivity.this, MainActivity.class));
+      new Handler(Looper.getMainLooper()).postDelayed(FirstActivity.this::finish, 100);
    }
 
    @Override

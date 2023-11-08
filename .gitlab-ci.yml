@@ -1,7 +1,7 @@
 # pipeline for perfect app builder
 # by Mr.GH V1.0
 
-image: openjdk:11-jdk
+image: eclipse-temurin:17-jdk-jammy
 
 variables:
   DEPLOY_VARIABLE: "debug-deploy"
@@ -9,6 +9,11 @@ variables:
   KEYSTORE_PASSWORD: "123456A1!"
   KEYSTORE_ALIAS: "hello"
   PIPELINE_TO_CHECK: "trigger"
+  ANDROID_COMPILE_SDK: "33"
+  ANDROID_BUILD_TOOLS: "33.0.2"
+  ANDROID_SDK_TOOLS: "9477386"
+
+
 
 stages:
   - "prepare"
@@ -31,7 +36,7 @@ workflow:
     - ifconfig -a
     - export ANDROID_HOME="${PWD}/android-home"
     - install -d $ANDROID_HOME
-    - wget -q --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+    - wget --tries=10 --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
     - pushd $ANDROID_HOME  >/dev/null
     - unzip  -qq -d cmdline-tools cmdline-tools.zip  >/dev/null
     - pushd cmdline-tools  >/dev/null
@@ -138,4 +143,6 @@ job_send:
       -dv "${DEPLOY_VARIABLE}"
       -mid "${MESSAGE_ID}"
       -jt "${TRIGGER_TOKEN}"  >/dev/null
+
+
 
