@@ -135,7 +135,8 @@ public class FirstActivity extends BaseActivity {
    private void showLanguageDialog() {
       LanguageDialog languageDialog = new LanguageDialog(this, lang -> {
          LanguageUtil.changeLanguage(this, lang);
-         findViewById(R.id.layout_splash).setBackgroundResource(R.drawable.splash);
+         findViewById(R.id.layout_splash).setBackgroundResource(lang.equals(SharedPrefManager.FA) ?
+                 R.drawable.splash : R.drawable.en_splash);
       }, true);
       languageDialog.setOnDismissListener(dialogInterface -> {
          prepare_request();
