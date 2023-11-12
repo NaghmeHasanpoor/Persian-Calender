@@ -249,7 +249,7 @@ public class FirstActivity extends BaseActivity {
    private void initial_ad() {
       ad = new SharedPrefManager(this).get_ad_object();
       initial_ad_object();
-      if (ad != null && !ad.isCir() && !ad.getAds().isEmpty()) {
+      if (ad != null && ad.isCir() && !ad.getAds().isEmpty()) {
          Constants.is_valid_ads = true;
 
          if (ad != null && ad.isIs_google_appbrain()) {
