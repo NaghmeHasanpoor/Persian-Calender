@@ -42,7 +42,9 @@ import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.Task;
+//import com.google.android.play.core.tasks.Task;
+import com.google.android.gms.tasks.Task;
+
 import com.arpitas.persiancalender.Dialog.AutoUpdateDialog;
 import com.arpitas.persiancalender.Dialog.CustomDialog;
 import com.arpitas.persiancalender.Dialog.LanguageDialog;
@@ -101,7 +103,7 @@ public class MainActivity extends BaseActivity {
    private Toolbar toolbar;
    TextView todayy;
    private AdView mAdView;
-   private ProgressDialog progress;
+//   private ProgressDialog progress;
    private AppUpdateManager appUpdateManager;
    private static final int RC_APP_UPDATE = 100;
    private boolean isExit = false, doubleBackToExitPressedOnce = false;
@@ -567,9 +569,9 @@ public class MainActivity extends BaseActivity {
    /*--------------------------------------------------------------------------------------------*/
    private void check_update() {
       Log.e("language", "check_update...");
-      progress = new ProgressDialog(MainActivity.this);
-      progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-      progress.show();
+//      progress = new ProgressDialog(MainActivity.this);
+//      progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//      progress.show();
 
       /*----------------------------------------*/
       if (NetworkUtil.getInstance(this).haveNetworkConnection()) {
@@ -601,7 +603,7 @@ public class MainActivity extends BaseActivity {
             }
          }
       } else {
-         progress.dismiss();
+//         progress.dismiss();
       }
    }
 
@@ -824,18 +826,18 @@ public class MainActivity extends BaseActivity {
                      show_custom_dialog(dialog);
                   } else {
                      shared.set_int_value(Constants.key_counter_login_user, counter);
-                     progress.dismiss();
+//                     progress.dismiss();
                   }
                }
             } else {
-               progress.dismiss();
+//               progress.dismiss();
             }
          } else {
-            progress.dismiss();
+//            progress.dismiss();
          }
       } catch (Exception e) {
          e.printStackTrace();
-         progress.dismiss();
+//         progress.dismiss();
       }
    }
 
@@ -843,11 +845,13 @@ public class MainActivity extends BaseActivity {
       try {
          CustomDialog customDialog = new CustomDialog(MainActivity.this, dialog, () -> finish());
          customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-         customDialog.setOnDismissListener(dialogInterface -> progress.dismiss());
+         customDialog.setOnDismissListener(dialogInterface -> {
+//            progress.dismiss()
+         });
          customDialog.show();
       } catch (Exception e) {
          e.printStackTrace();
-         progress.dismiss();
+//         progress.dismiss();
       }
    }
 

@@ -3,6 +3,7 @@ package com.arpitas.persiancalender.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -32,7 +33,13 @@ public class ApplicationService extends Service {
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
-        registerReceiver(broadcastReceivers, intentFilter);
+//        registerReceiver(broadcastReceivers, intentFilter, );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(broadcastReceivers, intentFilter, RECEIVER_EXPORTED);
+        }else{
+            registerReceiver(broadcastReceivers, intentFilter);
+        }
+
         Log.i("tag","register the broadcast");
 
         Utils utils = Utils.getInstance(getBaseContext());

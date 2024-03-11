@@ -111,10 +111,10 @@
     <string name="ppg" translatable="false">http://www.google.com</string>
     <string name="app_link" translatable="false">https://play.google.com/store/apps/details?id=</string>
 
-    <string name="abnt" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ain" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="arbnt" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="aoa" translatable="false">ca-app-pub-3940256099942544/3419835294</string>
+    <string name="abnt" translatable="false">ca-app-pub-3617501674073796/1988941071</string>
+    <string name="ain" translatable="false">ca-app-pub-3617501674073796/2117127104</string>
+    <string name="arbnt" translatable="false">ca-app-pub-3617501674073796/5864800422</string>
+    <string name="aoa" translatable="false">ca-app-pub-3617501674073796/4642114716</string>
     <string name="ant" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
     <string name="art" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
     <string name="cr" translatable="false">G</string>
