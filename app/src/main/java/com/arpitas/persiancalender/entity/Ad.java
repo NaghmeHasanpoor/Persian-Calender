@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Ad implements Serializable  {
-    private String id = "", package_name = "", privacy_policy_google = "";
+    private String id = "", package_name = "", privacy_policy_cafe = "";
 
     private String  admob_app_id = "", admob_banner_Id = "", admob_interstitial_Id = ""
             , admob_rate_id = "", admob_native_id = "", admob_reward_id = "", timeout, appOpenId;
@@ -87,14 +87,6 @@ public class Ad implements Serializable  {
         this.admob_reward_id = admob_reward_id;
     }
 
-    public String getPrivacy_policy_google() {
-        return privacy_policy_google;
-    }
-
-    public void setPrivacy_policy_google(String privacy_policy_google) {
-        this.privacy_policy_google = privacy_policy_google;
-    }
-
     public boolean isIs_google_admob() {
         return is_google_admob;
     }
@@ -165,5 +157,13 @@ public class Ad implements Serializable  {
 
     public void setAds(List<AdItem> ads) {
         this.ads = ads;
+    }
+
+    public String getPrivacy_policy_cafe() {
+        return privacy_policy_cafe;
+    }
+
+    public void setPrivacy_policy_cafe(String privacy_policy_cafe) {
+        this.privacy_policy_cafe = privacy_policy_cafe;
     }
 }

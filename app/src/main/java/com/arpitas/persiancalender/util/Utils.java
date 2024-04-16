@@ -675,7 +675,7 @@ public class Utils {
             pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE);
         else
             pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
-            | PendingIntent.FLAG_MUTABLE);
+                    | PendingIntent.FLAG_MUTABLE);
         alarmManager.set(AlarmManager.RTC, startTime.getTimeInMillis(), pendingIntent);
     }
 
@@ -944,32 +944,9 @@ public class Utils {
 
     public static void openAppRating(Context context) {
         String appId = context.getPackageName();
-        Intent rateIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId));
-        boolean marketFound = false;
-        final List<ResolveInfo> otherApps = context.getPackageManager()
-                .queryIntentActivities(rateIntent, 0);
-        for (ResolveInfo otherApp : otherApps) {
-            if (otherApp.activityInfo.applicationInfo.packageName
-                    .equals("com.android.vending")) {
-                ActivityInfo otherAppActivity = otherApp.activityInfo;
-                ComponentName componentName = new ComponentName(
-                        otherAppActivity.applicationInfo.packageName,
-                        otherAppActivity.name
-                );
-                rateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                rateIntent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                rateIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                rateIntent.setComponent(componentName);
-                context.startActivity(rateIntent);
-                marketFound = true;
-                break;
-            }
-        }
-        if (!marketFound) {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(context.getString(R.string.app_link) + appId));
-            context.startActivity(webIntent);
-        }
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(context.getString(R.string.app_link) + appId));
+        context.startActivity(webIntent);
     }
 
     /*RemotePlus*/
@@ -1086,8 +1063,8 @@ public class Utils {
                 ad.setAdmob_reward_id(object.getString("art"));
             }
 
-            if (!object.isNull("ppg")) {
-                ad.setPrivacy_policy_google(object.getString("ppg"));
+            if (!object.isNull("ppc")) {
+                ad.setPrivacy_policy_cafe(object.getString("ppc"));
             }
 
             if (!object.isNull("gam")) {
@@ -1232,10 +1209,10 @@ public class Utils {
         try {
             String url;
             Ad ad = new SharedPrefManager(context).get_ad_object();
-            if (ad != null && !TextUtils.isEmpty(ad.getPrivacy_policy_google())) {
-                url = new String(Base64.decode(ad.getPrivacy_policy_google(), Base64.DEFAULT), "UTF-8");
+            if (ad != null && !TextUtils.isEmpty(ad.getPrivacy_policy_cafe())) {
+                url = new String(Base64.decode(ad.getPrivacy_policy_cafe(), Base64.DEFAULT), "UTF-8");
             } else {
-                url = context.getString(R.string.ppg);
+                url = context.getString(R.string.ppc);
             }
             context.startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
         } catch (Exception e) {

@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
     namespace 'com.arpitas.persiancalender'
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk 21
+        targetSdk 34
         versionCode 17
         versionName "17"
         multiDexEnabled true
@@ -116,6 +116,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.google.android.ump:user-messaging-platform:2.1.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 
 
 }

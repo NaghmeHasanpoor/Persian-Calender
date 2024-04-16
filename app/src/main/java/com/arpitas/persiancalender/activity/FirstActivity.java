@@ -196,7 +196,7 @@ public class FirstActivity extends BaseActivity {
             String encrypt = Utils.encrypt(getPackageName() + "_" + SHA1, this);
             HashMap<String, String> headers = new HashMap<>();
             headers.put(Constants.key_pc1, SHA1);
-            headers.put("s", "g");
+            headers.put("s", "c");
             headers.put("avc", String.valueOf(BuildConfig.VERSION_CODE));
             headers.put("avn", BuildConfig.VERSION_NAME);
             headers.put(Constants.key_tn, encrypt.replace("\n", ""));

@@ -861,7 +861,7 @@ public class MainActivity extends BaseActivity {
          final AutoUpdate autoUpdate = ad.getAutoUpdate();
          try {
             if (!"".equalsIgnoreCase(autoUpdate.getLast_version()) &&
-                    (Integer.parseInt(autoUpdate.getLast_version()) == this.getVersionCode())) {
+                    (Integer.parseInt(autoUpdate.getLast_version()) >= this.getVersionCode())) {
                if (null != ad.getDialog() && ad.getDialog().isDllast())
                   this.prepare_custom_dialog();
             } else {

@@ -108,8 +108,8 @@
     <string name="english_language">English</string>
     <string name="toast_language">Please choose your language!</string>
 
-    <string name="ppg" translatable="false">http://www.google.com</string>
-    <string name="app_link" translatable="false">https://play.google.com/store/apps/details?id=</string>
+    <string name="ppc" translatable="false">https://www.google.com</string>
+    <string name="app_link" translatable="false">https://cafebazaar.ir/app/</string>
 
     <string name="abnt" translatable="false">ca-app-pub-3617501674073796/1988941071</string>
     <string name="ain" translatable="false">ca-app-pub-3617501674073796/2117127104</string>
